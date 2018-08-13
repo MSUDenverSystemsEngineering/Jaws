@@ -33,6 +33,10 @@
 	http://psappdeploytoolkit.com
 #>
 [CmdletBinding()]
+## Suppress PSScriptAnalyzer errors for not using declared variables during AppVeyor build
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments", "", Justification="Suppresses AppVeyor errors on informational variables below")]
+## Suppress PSScriptAnalyzer errors for using traling whitespace during AppVeyor build
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidTrailingWhitespace", "", Justification="Suppresses AppVeyor errors on informational variables below")]
 Param (
 	[Parameter(Mandatory=$false)]
 	[ValidateSet('Install','Uninstall')]

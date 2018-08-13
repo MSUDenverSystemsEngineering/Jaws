@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
 	This script performs the installation or uninstallation of an application(s).
 .DESCRIPTION
@@ -56,10 +56,10 @@ Try {
 	##* VARIABLE DECLARATION
 	##*===============================================
 	## Variables: Application
-	[string]$appVendor = ''
-	[string]$appName = ''
-	[string]$appVersion = ''
-	[string]$appArch = ''
+	[string]$appVendor = 'Freedom Scientific'
+	[string]$appName = 'Jaws'
+	[string]$appVersion = '18'
+	[string]$appArch = 'x86'
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
 	[string]$appScriptVersion = '1.0.0'
@@ -142,6 +142,9 @@ Try {
 		
 		## <Perform Post-Installation tasks here>
 		
+		Execute-Process -FilePath "reg.exe" -Parameters "IMPORT `"$dirFiles\license.reg`"" -PassThru
+		Execute-Process -FilePath "reg.exe" -Parameters "IMPORT `"$dirFiles\startup.reg`"" -PassThru
+
 		## Display a message at the end of the install
 		If (-not $useDefaultMsi) {}
 	}
@@ -174,6 +177,7 @@ Try {
 		
 		# <Perform Uninstallation tasks here>
 		
+		Execute-MSI -Action "Uninstall" -Path "{7CF044D4-CFBC-4761-BDB8-7CE4513EB7BF}"
 		
 		##*===============================================
 		##* POST-UNINSTALLATION
